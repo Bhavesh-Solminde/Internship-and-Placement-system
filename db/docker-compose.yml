@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:15
+    restart: always
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_DB=ips
+      - POSTGRES_USER=ips
+      - POSTGRES_PASSWORD=ips
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+
+volumes:
+  db_data:
