@@ -157,7 +157,7 @@ cp .env.example .env
 
 > **Important:** All Vite environment variables must be prefixed with `VITE_` to be exposed to the browser. They are accessed via `import.meta.env.VITE_*`.
 
----
+---..
 
 ## Available Scripts
 
@@ -169,7 +169,7 @@ cp .env.example .env
 
 ---
 
-## Routing
+## Routing.
 
 All routes are defined in `src/App.jsx` using `react-router-dom` v6 with `BrowserRouter`.
 
