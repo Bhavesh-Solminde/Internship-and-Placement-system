@@ -11,7 +11,7 @@ const signToken = (id, role) =>
 
 // ─── Student Register ─────────────────────────────────────────────────
 export const studentRegister = asyncHandler(async (req, res) => {
-  const { name, email, phone, password, gpa, coordinator_id, skills } = req.body;
+  const { name, email, phone, password, cgpa, coordinator_id, skills } = req.body;
 
   if (!name || !email || !password) {
     throw new ApiError(400, "Name, email, and password are required");
@@ -20,10 +20,10 @@ export const studentRegister = asyncHandler(async (req, res) => {
   const passwordHash = await bcrypt.hash(password, 12);
 
   const { rows } = await pool.query(
-    `INSERT INTO students (name, email, phone, password_hash, gpa, coordinator_id, skills)
+    `INSERT INTO students (name, email, phone, password_hash, cgpa, coordinator_id, skills)
      VALUES ($1, $2, $3, $4, $5, $6, $7)
-     RETURNING student_id, name, email, phone, gpa, skills, created_at`,
-    [name, email, phone || null, passwordHash, gpa || null, coordinator_id || null, skills || null]
+     RETURNING student_id, name, email, phone, cgpa, skills, created_at`,
+    [name, email, phone || null, passwordHash, cgpa || null, coordinator_id || null, skills || null]
   );
 
   const student = rows[0];
@@ -43,7 +43,7 @@ export const studentLogin = asyncHandler(async (req, res) => {
   }
 
   const { rows } = await pool.query(
-    `SELECT student_id, name, email, phone, gpa, skills, password_hash FROM students WHERE email = $1`,
+    `SELECT student_id, name, email, phone, cgpa, skills, password_hash FROM students WHERE email = $1`,
     [email]
   );
 
@@ -184,7 +184,7 @@ export const getMe = asyncHandler(async (req, res) => {
 
   if (role === "student") {
     idCol = "student_id";
-    query = `SELECT student_id, name, email, phone, gpa, skills, resume_url, coordinator_id, created_at FROM students WHERE student_id = $1`;
+    query = `SELECT student_id, name, email, phone, cgpa, skills, resume_url, coordinator_id, created_at FROM students WHERE student_id = $1`;
   } else if (role === "coordinator") {
     idCol = "coordinator_id";
     query = `SELECT coordinator_id, name, email, phone, created_at FROM coordinators WHERE coordinator_id = $1`;

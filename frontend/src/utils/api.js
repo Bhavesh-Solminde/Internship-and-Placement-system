@@ -22,9 +22,18 @@ export const studentAPI = {
       headers: { "Content-Type": "multipart/form-data" },
     });
   },
+  parseResume:     (file) => {
+    const fd = new FormData();
+    fd.append("resume", file);
+    return api.post("/api/students/resume/parse", fd, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+  },
   getApplications: ()     => api.get("/api/students/applications"),
   getApplication:  (id)   => api.get(`/api/students/applications/${id}`),
   getDashboard:    ()     => api.get("/api/students/dashboard"),
+  getMatches:      ()     => api.get("/api/students/matches"),
+  getAppliedIds:   ()     => api.get("/api/students/applied-ids"),
 };
 
 // ─── Internships ─────────────────────────────────────────────────────
@@ -75,20 +84,21 @@ export const companyAPI = {
   postInternship:    (data)     => api.post("/api/internships", data),
   postJob:           (data)     => api.post("/api/jobs", data),
   getApplicants:     (type, id) => api.get(`/api/companies/${type}/${id}/applicants`),
-  scheduleInterview: (data)     => api.post("/api/interviews", data),
-  issueOffer:        (data)     => api.post("/api/offers", data),
+  updateApplicationStatus: (appId, status) => api.put(`/api/companies/applications/${appId}/status`, { status }),
+  getAnalytics:      ()         => api.get("/api/companies/analytics"),
+  getPublicProfile:  (id)       => api.get(`/api/companies/public/${id}`),
 };
 
 // ─── Interviews ──────────────────────────────────────────────────────
 export const interviewAPI = {
+  schedule:         (data)      => api.post("/api/interviews", data),
   getByApplication: (applicationId) => api.get(`/api/interviews/application/${applicationId}`),
-  update:           (id, data)      => api.put(`/api/interviews/${id}`, data),
-  remove:           (id)            => api.delete(`/api/interviews/${id}`),
+  update:           (id, data)  => api.put(`/api/interviews/${id}`, data),
+  remove:           (id)        => api.delete(`/api/interviews/${id}`),
 };
 
-// ─── Onboarding ──────────────────────────────────────────────────────
-export const onboardingAPI = {
-  create:    (data)     => api.post("/api/onboarding", data),
-  getByOffer:(offerId)  => api.get(`/api/onboarding/offer/${offerId}`),
-  update:    (id, data) => api.put(`/api/onboarding/${id}`, data),
+// ─── Offers (company) ────────────────────────────────────────────────
+export const companyOfferAPI = {
+  issue:  (data) => api.post("/api/offers", data),
+  update: (id, data) => api.put(`/api/offers/${id}`, data),
 };

@@ -1,5 +1,5 @@
 -- ═══════════════════════════════════════════════════════════════════════
--- Internship & Job Management System — PostgreSQL Schema
+-- SmartNiyukti — Internship & Job Management System (PostgreSQL Schema)
 -- ═══════════════════════════════════════════════════════════════════════
 
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
@@ -21,10 +21,18 @@ CREATE TABLE students (
   email           VARCHAR(150) UNIQUE NOT NULL,
   phone           VARCHAR(20),
   password_hash   TEXT NOT NULL,
-  gpa             DECIMAL(4,2),
+  cgpa            DECIMAL(4,2),
   coordinator_id  UUID REFERENCES coordinators(coordinator_id) ON DELETE SET NULL,
   resume_url      TEXT,
   skills          TEXT[],
+  education       JSONB DEFAULT '[]',
+  experience      JSONB DEFAULT '[]',
+  projects        JSONB DEFAULT '[]',
+  experience_years NUMERIC(4,1) DEFAULT 0,
+  linkedin_url    TEXT,
+  github_url      TEXT,
+  portfolio_url   TEXT,
+  location        VARCHAR(200),
   created_at      TIMESTAMP DEFAULT NOW(),
   updated_at      TIMESTAMP DEFAULT NOW()
 );
@@ -50,6 +58,8 @@ CREATE TABLE internships (
   duration        VARCHAR(100),
   description     TEXT,
   company_id      UUID REFERENCES companies(company_id) ON DELETE CASCADE,
+  required_experience_years NUMERIC(4,1) DEFAULT 0,
+  deadline        TIMESTAMP,
   status          VARCHAR(20) DEFAULT 'open'
                   CHECK (status IN ('open', 'closed', 'filled')),
   created_at      TIMESTAMP DEFAULT NOW()
@@ -63,6 +73,8 @@ CREATE TABLE jobs (
   location        VARCHAR(200),
   description     TEXT,
   company_id      UUID REFERENCES companies(company_id) ON DELETE CASCADE,
+  required_experience_years NUMERIC(4,1) DEFAULT 0,
+  deadline        TIMESTAMP,
   status          VARCHAR(20) DEFAULT 'open'
                   CHECK (status IN ('open', 'closed', 'filled')),
   created_at      TIMESTAMP DEFAULT NOW()
@@ -111,18 +123,6 @@ CREATE TABLE offers (
   offer_letter_url TEXT,
   deadline         TIMESTAMP,
   created_at       TIMESTAMP DEFAULT NOW()
-);
-
--- ─── Onboarding ───────────────────────────────────────────────────────
-CREATE TABLE onboarding (
-  onboarding_id   UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-  joining_date    TIMESTAMP,
-  status          VARCHAR(30) DEFAULT 'pending'
-                  CHECK (status IN ('pending','documents_submitted','in_progress','completed','cancelled')),
-  offer_id        UUID UNIQUE REFERENCES offers(offer_id) ON DELETE CASCADE,
-  notes           TEXT,
-  created_at      TIMESTAMP DEFAULT NOW(),
-  updated_at      TIMESTAMP DEFAULT NOW()
 );
 
 -- ─── Indexes ──────────────────────────────────────────────────────────

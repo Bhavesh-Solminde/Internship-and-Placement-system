@@ -10,14 +10,20 @@ import RegisterPage from "./pages/RegisterPage.jsx";
 
 // Student
 import StudentDashboard from "./pages/student/StudentDashboard.jsx";
+import EditProfile from "./pages/student/EditProfile.jsx";
 import InternshipListing from "./pages/student/InternshipListing.jsx";
 import InternshipDetail from "./pages/student/InternshipDetail.jsx";
 import JobListing from "./pages/student/JobListing.jsx";
 import JobDetail from "./pages/student/JobDetail.jsx";
 import MyApplications from "./pages/student/MyApplications.jsx";
+import ApplicationDetail from "./pages/student/ApplicationDetail.jsx";
 
 // Company
 import CompanyDashboard from "./pages/company/CompanyDashboard.jsx";
+import ApplicantsPage from "./pages/company/ApplicantsPage.jsx";
+import PostListingPage from "./pages/company/PostListingPage.jsx";
+import CompanyAnalytics from "./pages/company/CompanyAnalytics.jsx";
+import CompanyProfile from "./pages/company/CompanyProfile.jsx";
 
 // Coordinator
 import CoordinatorDashboard from "./pages/coordinator/CoordinatorDashboard.jsx";
@@ -25,6 +31,7 @@ import ManageStudents from "./pages/coordinator/ManageStudents.jsx";
 import ManageCompanies from "./pages/coordinator/ManageCompanies.jsx";
 import ManageApplications from "./pages/coordinator/ManageApplications.jsx";
 import ReportsPage from "./pages/coordinator/ReportsPage.jsx";
+import AnalyticsDashboard from "./pages/coordinator/AnalyticsDashboard.jsx";
 
 // ── Route Guard ──────────────────────────────────────────────────────
 const ProtectedRoute = ({ children, roles }) => {
@@ -44,14 +51,19 @@ const AppRoutes = () => (
     <Route path="/internships/:id" element={<InternshipDetail />} />
     <Route path="/jobs" element={<JobListing />} />
     <Route path="/jobs/:id" element={<JobDetail />} />
+    <Route path="/companies/:id" element={<CompanyProfile />} />
 
     {/* Student */}
     <Route path="/student/dashboard" element={<ProtectedRoute roles={["student"]}><StudentDashboard /></ProtectedRoute>} />
+    <Route path="/student/profile/edit" element={<ProtectedRoute roles={["student"]}><EditProfile /></ProtectedRoute>} />
     <Route path="/student/applications" element={<ProtectedRoute roles={["student"]}><MyApplications /></ProtectedRoute>} />
-    <Route path="/student/applications/:id" element={<ProtectedRoute roles={["student"]}><StudentDashboard /></ProtectedRoute>} />
+    <Route path="/student/applications/:id" element={<ProtectedRoute roles={["student"]}><ApplicationDetail /></ProtectedRoute>} />
 
     {/* Company */}
     <Route path="/company/dashboard" element={<ProtectedRoute roles={["company"]}><CompanyDashboard /></ProtectedRoute>} />
+    <Route path="/company/listings/:type/:id/applicants" element={<ProtectedRoute roles={["company"]}><ApplicantsPage /></ProtectedRoute>} />
+    <Route path="/company/post/:type" element={<ProtectedRoute roles={["company"]}><PostListingPage /></ProtectedRoute>} />
+    <Route path="/company/analytics" element={<ProtectedRoute roles={["company"]}><CompanyAnalytics /></ProtectedRoute>} />
 
     {/* Coordinator */}
     <Route path="/coordinator/dashboard" element={<ProtectedRoute roles={["coordinator"]}><CoordinatorDashboard /></ProtectedRoute>} />
@@ -59,6 +71,7 @@ const AppRoutes = () => (
     <Route path="/coordinator/companies" element={<ProtectedRoute roles={["coordinator"]}><ManageCompanies /></ProtectedRoute>} />
     <Route path="/coordinator/applications" element={<ProtectedRoute roles={["coordinator"]}><ManageApplications /></ProtectedRoute>} />
     <Route path="/coordinator/reports" element={<ProtectedRoute roles={["coordinator"]}><ReportsPage /></ProtectedRoute>} />
+    <Route path="/coordinator/analytics" element={<ProtectedRoute roles={["coordinator"]}><AnalyticsDashboard /></ProtectedRoute>} />
 
     {/* Fallback */}
     <Route path="*" element={<Navigate to="/" replace />} />
