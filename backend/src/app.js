@@ -13,7 +13,7 @@ import jobRoutes from "./modules/jobs/jobs.routes.js";
 import applicationRoutes from "./modules/applications/applications.routes.js";
 import interviewRoutes from "./modules/interviews/interviews.routes.js";
 import offerRoutes from "./modules/offers/offers.routes.js";
-import onboardingRoutes from "./modules/onboarding/onboarding.routes.js";
+
 import coordinatorRoutes from "./modules/coordinators/coordinators.routes.js";
 
 const app = express();
@@ -45,7 +45,7 @@ app.use("/api/jobs", jobRoutes);
 app.use("/api/applications", applicationRoutes);
 app.use("/api/interviews", interviewRoutes);
 app.use("/api/offers", offerRoutes);
-app.use("/api/onboarding", onboardingRoutes);
+
 app.use("/api/coordinators", coordinatorRoutes);
 
 // ── 404 Handler ─────────────────────────────────────────────────────
