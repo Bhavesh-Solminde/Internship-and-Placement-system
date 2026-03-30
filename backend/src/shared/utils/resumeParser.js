@@ -1,5 +1,4 @@
 import fs from "fs";
-import path from "path";
 import { ENV } from "../../env.js";
 
 /**
@@ -10,7 +9,7 @@ import { ENV } from "../../env.js";
 async function extractTextFromPDF(filePath) {
   // Import the internal parser directly to bypass ESM module.parent issues in pdf-parse 1.1.1
   const pdfParse = (await import("pdf-parse/lib/pdf-parse.js")).default;
-  const buffer = fs.readFileSync(filePath);
+  const buffer = await fs.promises.readFile(filePath);
   const data = await pdfParse(buffer);
   return data.text || "";
 }

@@ -5,7 +5,7 @@ import pool from "../../config/db.js";
 // ─── Get students under this coordinator ─────────────────────────────
 export const getStudents = asyncHandler(async (req, res) => {
   const { rows } = await pool.query(
-    `SELECT student_id, name, email, phone, gpa, skills, resume_url, created_at
+    `SELECT student_id, name, email, phone, cgpa, skills, resume_url, created_at
      FROM students WHERE coordinator_id = $1
      ORDER BY name ASC`,
     [req.user.id]
@@ -16,7 +16,7 @@ export const getStudents = asyncHandler(async (req, res) => {
 // ─── Get single student ──────────────────────────────────────────────
 export const getStudent = asyncHandler(async (req, res) => {
   const { rows } = await pool.query(
-    `SELECT student_id, name, email, phone, gpa, skills, resume_url, created_at
+    `SELECT student_id, name, email, phone, cgpa, skills, resume_url, created_at
      FROM students WHERE student_id = $1 AND coordinator_id = $2`,
     [req.params.id, req.user.id]
   );
@@ -26,18 +26,18 @@ export const getStudent = asyncHandler(async (req, res) => {
 
 // ─── Update student ──────────────────────────────────────────────────
 export const updateStudent = asyncHandler(async (req, res) => {
-  const { name, phone, gpa, skills } = req.body;
+  const { name, phone, cgpa, skills } = req.body;
 
   const { rows } = await pool.query(
     `UPDATE students
      SET name = COALESCE($1, name),
          phone = COALESCE($2, phone),
-         gpa = COALESCE($3, gpa),
+         cgpa = COALESCE($3, cgpa),
          skills = COALESCE($4, skills),
          updated_at = NOW()
      WHERE student_id = $5 AND coordinator_id = $6
-     RETURNING student_id, name, email, phone, gpa, skills`,
-    [name || null, phone || null, gpa || null, skills || null, req.params.id, req.user.id]
+     RETURNING student_id, name, email, phone, cgpa, skills`,
+    [name || null, phone || null, cgpa || null, skills || null, req.params.id, req.user.id]
   );
 
   if (rows.length === 0) throw new ApiError(404, "Student not found");

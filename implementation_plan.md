@@ -1,7 +1,7 @@
 # Implementation Plan: Major Feature Update (Final)
 
 ## Overview
-19 consolidated requirements. All decisions settled except **website name** — proposing **"NexPath"** (clean, professional, placement-focused). Confirm or suggest alternative.
+19 consolidated requirements. All decisions settled except **website name** — proposing **"SmartNiyukti"** (clean, professional, placement-focused).
 
 ---
 
@@ -23,7 +23,7 @@
 ## User Review Required
 
 > [!IMPORTANT]
-> **Website Name**: Proposing **"NexPath"** — approve or suggest alternative before I start.
+> **Website Name**: Proposing **"SmartNiyukti"** — approve or suggest alternative before I start.
 
 > [!IMPORTANT]
 > **JSONB Migration**: Existing `education`, `experience`, `projects` TEXT columns will be **converted to JSONB**. Any existing text data will be lost (only demo data exists currently, so this is safe). Confirm OK.
@@ -181,7 +181,7 @@ New routes:
 - `/companies/:id` (public)
 
 #### [MODIFY] `components/layout/Navbar.jsx`
-- Rename brand: "InternPlace" → **"NexPath"** (or chosen name)
+- Rename brand: "InternPlace" → **"SmartNiyukti"** (or chosen name)
 - Company nav: add "Analytics" link
 - Header: Company name links to `/companies/:id`
 
@@ -234,7 +234,7 @@ New seed file `backend/src/seed.sql`:
 ## Open Questions
 
 > [!IMPORTANT]
-> **Website name**: "NexPath" — approve or provide alternative.
+> **Website name**: "SmartNiyukti" — approve or provide alternative.
 
 > [!NOTE]
 > **Lucide React**: already in `package.json` as a dependency (`lucide-react`)? Will check and install if needed.

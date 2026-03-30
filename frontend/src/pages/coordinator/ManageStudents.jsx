@@ -20,7 +20,7 @@ const ManageStudents = () => {
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead><tr className="border-b border-surface-200 text-left text-surface-500">
-              <th className="pb-3 font-medium">Name</th><th className="pb-3 font-medium">Email</th><th className="pb-3 font-medium">Phone</th><th className="pb-3 font-medium">GPA</th><th className="pb-3 font-medium">Skills</th>
+              <th className="pb-3 font-medium">Name</th><th className="pb-3 font-medium">Email</th><th className="pb-3 font-medium">Phone</th><th className="pb-3 font-medium">CGPA</th><th className="pb-3 font-medium">Skills</th>
             </tr></thead>
             <tbody>
               {students.map((s) => (
@@ -28,7 +28,7 @@ const ManageStudents = () => {
                   <td className="py-3 font-medium text-surface-900">{s.name}</td>
                   <td className="py-3 text-surface-600">{s.email}</td>
                   <td className="py-3 text-surface-600">{s.phone || "-"}</td>
-                  <td className="py-3 text-surface-600">{s.gpa || "-"}</td>
+                  <td className="py-3 text-surface-600">{s.cgpa || "-"}</td>
                   <td className="py-3">{s.skills?.length ? <div className="flex flex-wrap gap-1">{s.skills.map((sk) => <span key={sk} className="badge bg-brand-50 text-brand-600">{sk}</span>)}</div> : "-"}</td>
                 </tr>
               ))}

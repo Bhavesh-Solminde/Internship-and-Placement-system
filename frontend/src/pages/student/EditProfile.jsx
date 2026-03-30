@@ -125,23 +125,23 @@ const EditProfile = () => {
         <div className="grid sm:grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-medium text-surface-700 mb-1">Full Name</label>
-            <input name="name" value={form.name} onChange={handleChange} className="input" placeholder="John Doe" />
+            <input name="name" value={form.name} onChange={handleChange} className="input-field" placeholder="John Doe" />
           </div>
           <div>
             <label className="block text-sm font-medium text-surface-700 mb-1">Phone</label>
-            <div className="relative"><Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-surface-400" /><input name="phone" value={form.phone} onChange={handleChange} className="input pl-10" placeholder="+91 98765 43210" /></div>
+            <div className="relative"><Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-surface-400" /><input name="phone" value={form.phone} onChange={handleChange} className="input-field pl-10" placeholder="+91 98765 43210" /></div>
           </div>
           <div>
             <label className="block text-sm font-medium text-surface-700 mb-1">Location</label>
-            <div className="relative"><MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-surface-400" /><input name="location" value={form.location} onChange={handleChange} className="input pl-10" placeholder="Mumbai, India" /></div>
+            <div className="relative"><MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-surface-400" /><input name="location" value={form.location} onChange={handleChange} className="input-field pl-10" placeholder="Mumbai, India" /></div>
           </div>
           <div>
             <label className="block text-sm font-medium text-surface-700 mb-1">CGPA (out of 10)</label>
-            <input name="cgpa" type="number" min="0" max="10" step="0.01" value={form.cgpa} onChange={handleChange} className="input" placeholder="8.50" />
+            <input name="cgpa" type="number" min="0" max="10" step="0.01" value={form.cgpa} onChange={handleChange} className="input-field" placeholder="8.50" />
           </div>
           <div>
             <label className="block text-sm font-medium text-surface-700 mb-1">Experience (years)</label>
-            <input name="experience_years" type="number" min="0" step="0.5" value={form.experience_years} onChange={handleChange} className="input" placeholder="2" />
+            <input name="experience_years" type="number" min="0" step="0.5" value={form.experience_years} onChange={handleChange} className="input-field" placeholder="2" />
           </div>
         </div>
       </section>
@@ -152,15 +152,15 @@ const EditProfile = () => {
         <div className="grid sm:grid-cols-2 gap-4">
           <div className="sm:col-span-2">
             <label className="block text-sm font-medium text-surface-700 mb-1 flex items-center gap-1"><ExternalLink className="w-3.5 h-3.5" /> LinkedIn URL</label>
-            <input name="linkedin_url" value={form.linkedin_url} onChange={handleChange} className="input" placeholder="https://linkedin.com/in/your-profile" />
+            <input name="linkedin_url" value={form.linkedin_url} onChange={handleChange} className="input-field" placeholder="https://linkedin.com/in/your-profile" />
           </div>
           <div>
             <label className="block text-sm font-medium text-surface-700 mb-1 flex items-center gap-1"><GitBranch className="w-3.5 h-3.5" /> GitHub URL</label>
-            <input name="github_url" value={form.github_url} onChange={handleChange} className="input" placeholder="https://github.com/username" />
+            <input name="github_url" value={form.github_url} onChange={handleChange} className="input-field" placeholder="https://github.com/username" />
           </div>
           <div>
             <label className="block text-sm font-medium text-surface-700 mb-1 flex items-center gap-1"><Globe className="w-3.5 h-3.5" /> Portfolio URL</label>
-            <input name="portfolio_url" value={form.portfolio_url} onChange={handleChange} className="input" placeholder="https://yoursite.com" />
+            <input name="portfolio_url" value={form.portfolio_url} onChange={handleChange} className="input-field" placeholder="https://yoursite.com" />
           </div>
         </div>
       </section>
@@ -176,12 +176,12 @@ const EditProfile = () => {
           <div key={i} className="border border-surface-200 rounded-xl p-4 mb-3 relative bg-surface-50/50">
             <button onClick={() => removeItem("education", i)} className="absolute top-3 right-3 p-1 text-red-400 hover:text-red-600"><Trash2 className="w-4 h-4" /></button>
             <div className="grid sm:grid-cols-2 gap-3">
-              <input placeholder="Degree (e.g., B.Tech)" value={edu.degree} onChange={(e) => updateItem("education", i, "degree", e.target.value)} className="input" />
-              <input placeholder="Institution" value={edu.institution} onChange={(e) => updateItem("education", i, "institution", e.target.value)} className="input" />
-              <input placeholder="Field of Study" value={edu.field} onChange={(e) => updateItem("education", i, "field", e.target.value)} className="input" />
+              <input placeholder="Degree (e.g., B.Tech)" value={edu.degree} onChange={(e) => updateItem("education", i, "degree", e.target.value)} className="input-field" />
+              <input placeholder="Institution" value={edu.institution} onChange={(e) => updateItem("education", i, "institution", e.target.value)} className="input-field" />
+              <input placeholder="Field of Study" value={edu.field} onChange={(e) => updateItem("education", i, "field", e.target.value)} className="input-field" />
               <div className="flex gap-2">
-                <input placeholder="From Year" value={edu.from_year} onChange={(e) => updateItem("education", i, "from_year", e.target.value)} className="input" />
-                <input placeholder="To Year" value={edu.to_year} onChange={(e) => updateItem("education", i, "to_year", e.target.value)} className="input" />
+                <input placeholder="From Year" value={edu.from_year} onChange={(e) => updateItem("education", i, "from_year", e.target.value)} className="input-field" />
+                <input placeholder="To Year" value={edu.to_year} onChange={(e) => updateItem("education", i, "to_year", e.target.value)} className="input-field" />
               </div>
             </div>
           </div>
@@ -199,11 +199,11 @@ const EditProfile = () => {
           <div key={i} className="border border-surface-200 rounded-xl p-4 mb-3 relative bg-surface-50/50">
             <button onClick={() => removeItem("experience", i)} className="absolute top-3 right-3 p-1 text-red-400 hover:text-red-600"><Trash2 className="w-4 h-4" /></button>
             <div className="grid sm:grid-cols-2 gap-3">
-              <input placeholder="Job Title" value={exp.title} onChange={(e) => updateItem("experience", i, "title", e.target.value)} className="input" />
-              <input placeholder="Company" value={exp.company} onChange={(e) => updateItem("experience", i, "company", e.target.value)} className="input" />
-              <input placeholder="Start (e.g., Jan 2023)" value={exp.start} onChange={(e) => updateItem("experience", i, "start", e.target.value)} className="input" />
-              <input placeholder="End (e.g., Dec 2023)" value={exp.end} onChange={(e) => updateItem("experience", i, "end", e.target.value)} className="input" />
-              <textarea placeholder="Description" value={exp.description} onChange={(e) => updateItem("experience", i, "description", e.target.value)} className="input sm:col-span-2" rows={2} />
+              <input placeholder="Job Title" value={exp.title} onChange={(e) => updateItem("experience", i, "title", e.target.value)} className="input-field" />
+              <input placeholder="Company" value={exp.company} onChange={(e) => updateItem("experience", i, "company", e.target.value)} className="input-field" />
+              <input placeholder="Start (e.g., Jan 2023)" value={exp.start} onChange={(e) => updateItem("experience", i, "start", e.target.value)} className="input-field" />
+              <input placeholder="End (e.g., Dec 2023)" value={exp.end} onChange={(e) => updateItem("experience", i, "end", e.target.value)} className="input-field" />
+              <textarea placeholder="Description" value={exp.description} onChange={(e) => updateItem("experience", i, "description", e.target.value)} className="input-field sm:col-span-2" rows={2} />
               <label className="flex items-center gap-2 text-sm text-surface-600">
                 <input type="checkbox" checked={exp.is_current} onChange={(e) => updateItem("experience", i, "is_current", e.target.checked)} className="rounded" />
                 Currently working here
@@ -224,10 +224,10 @@ const EditProfile = () => {
           <div key={i} className="border border-surface-200 rounded-xl p-4 mb-3 relative bg-surface-50/50">
             <button onClick={() => removeItem("projects", i)} className="absolute top-3 right-3 p-1 text-red-400 hover:text-red-600"><Trash2 className="w-4 h-4" /></button>
             <div className="grid sm:grid-cols-2 gap-3">
-              <input placeholder="Project Name" value={proj.name} onChange={(e) => updateItem("projects", i, "name", e.target.value)} className="input" />
-              <input placeholder="Tech Stack (e.g., React, Node)" value={proj.tech} onChange={(e) => updateItem("projects", i, "tech", e.target.value)} className="input" />
-              <textarea placeholder="Description" value={proj.description} onChange={(e) => updateItem("projects", i, "description", e.target.value)} className="input sm:col-span-2" rows={2} />
-              <input placeholder="Project URL" value={proj.url} onChange={(e) => updateItem("projects", i, "url", e.target.value)} className="input" />
+              <input placeholder="Project Name" value={proj.name} onChange={(e) => updateItem("projects", i, "name", e.target.value)} className="input-field" />
+              <input placeholder="Tech Stack (e.g., React, Node)" value={proj.tech} onChange={(e) => updateItem("projects", i, "tech", e.target.value)} className="input-field" />
+              <textarea placeholder="Description" value={proj.description} onChange={(e) => updateItem("projects", i, "description", e.target.value)} className="input-field sm:col-span-2" rows={2} />
+              <input placeholder="Project URL" value={proj.url} onChange={(e) => updateItem("projects", i, "url", e.target.value)} className="input-field" />
             </div>
           </div>
         ))}
@@ -245,7 +245,7 @@ const EditProfile = () => {
           ))}
         </div>
         <div className="flex gap-2">
-          <input value={skillInput} onChange={(e) => setSkillInput(e.target.value)} onKeyDown={(e) => e.key === "Enter" && (e.preventDefault(), addSkill())} className="input flex-1" placeholder="Type a skill and press Enter" />
+          <input value={skillInput} onChange={(e) => setSkillInput(e.target.value)} onKeyDown={(e) => e.key === "Enter" && (e.preventDefault(), addSkill())} className="input-field flex-1" placeholder="Type a skill and press Enter" />
           <button onClick={addSkill} className="btn-secondary"><Plus className="w-4 h-4" /></button>
         </div>
       </section>

@@ -104,7 +104,7 @@ const StudentDashboard = () => {
               <Link key={app.application_id} to={`/student/applications/${app.application_id}`} className="card-hover p-4 flex items-center justify-between">
                 <div>
                   <h3 className="font-medium text-surface-900">{app.internship_title || app.job_title}</h3>
-                  <p className="text-sm text-surface-500 mt-0.5">{app.company_name} · {app.application_type === "internship" ? `₹${app.stipend}/mo` : `₹${app.salary}/yr`}</p>
+                  <p className="text-sm text-surface-500 mt-0.5">{app.company_name} · {app.application_type === "internship" ? `₹${app.stipend}/mo` : (app.salary != null ? `₹${Number(app.salary).toLocaleString()}/yr` : "Salary not disclosed")}</p>
                 </div>
                 <StatusBadge status={app.status} />
               </Link>
