@@ -14,10 +14,10 @@ export const createInterview = asyncHandler(async (req, res) => {
     [application_id, date, round || null, mode || null, notes || null]
   );
 
-  // Auto-update application status to shortlisted
+  // Update application status to under_review if still pending
   await pool.query(
-    `UPDATE applications SET status = 'shortlisted'
-     WHERE application_id = $1 AND status IN ('pending', 'under_review')`,
+    `UPDATE applications SET status = 'under_review'
+     WHERE application_id = $1 AND status = 'pending'`,
     [application_id]
   );
 

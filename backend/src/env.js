@@ -17,5 +17,4 @@ export const ENV = {
   JWT_EXPIRES_IN: process.env.JWT_EXPIRES_IN || "7d",
   CLIENT_URL:     process.env.CLIENT_URL || "http://localhost:5173",
   UPLOAD_DIR:     process.env.UPLOAD_DIR || "./uploads",
-  GEMINI_API_KEY: process.env.GEMINI_API_KEY || "",
 };

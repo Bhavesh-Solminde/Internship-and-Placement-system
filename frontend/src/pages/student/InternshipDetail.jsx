@@ -1,91 +1,79 @@
 import React, { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
-import { internshipAPI, studentAPI } from "../../utils/api.js";
+import { useParams, useNavigate } from "react-router-dom";
+import { internshipAPI } from "../../utils/api.js";
 import { useAuthStore } from "../../store/useAuthStore.js";
-import { ArrowLeft, Building2, MapPin, Clock, IndianRupee, Briefcase, Calendar, CheckCircle, AlertCircle } from "lucide-react";
+import StatusBadge from "../../components/ui/StatusBadge.jsx";
+import { HiOutlineCurrencyRupee, HiOutlineClock, HiOutlineLocationMarker, HiOutlineGlobe, HiOutlineArrowLeft } from "react-icons/hi";
 
 const InternshipDetail = () => {
   const { id } = useParams();
-  const { isAuthenticated, role } = useAuthStore();
+  const { role, user } = useAuthStore();
+  const navigate = useNavigate();
   const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [applying, setApplying] = useState(false);
-  const [applied, setApplied] = useState(false);
+  const [applyLoading, setApplyLoading] = useState(false);
   const [msg, setMsg] = useState("");
-  const [studentExp, setStudentExp] = useState(0);
 
   useEffect(() => {
-    const fetch = async () => {
-      try {
-        const { data: res } = await internshipAPI.detail(id);
-        setData(res.data);
-        if (isAuthenticated && role === "student") {
-          const [profileRes, appliedRes] = await Promise.all([
-            studentAPI.getProfile(), studentAPI.getAppliedIds()
-          ]);
-          setStudentExp(Number(profileRes.data.data.experience_years) || 0);
-          if (appliedRes.data.data.internship_ids.includes(id)) setApplied(true);
-        }
-      } catch (err) { console.error(err); }
-      finally { setLoading(false); }
-    };
-    fetch();
+    internshipAPI.detail(id).then((res) => setData(res.data.data)).catch(() => navigate("/internships"));
   }, [id]);
 
   const handleApply = async () => {
-    setApplying(true); setMsg("");
+    setApplyLoading(true);
     try {
       await internshipAPI.apply(id);
-      setApplied(true); setMsg("Applied successfully!");
-    } catch (err) { setMsg(err.response?.data?.message || "Failed to apply"); }
-    finally { setApplying(false); }
+      setMsg("✅ Application submitted!");
+    } catch (err) {
+      setMsg(err.response?.data?.message || "Failed to apply");
+    } finally {
+      setApplyLoading(false);
+    }
   };
 
-  if (loading) return <div className="page-container flex items-center justify-center min-h-[60vh]"><div className="animate-pulse text-surface-400">Loading...</div></div>;
-  if (!data) return <div className="page-container text-center text-surface-400">Internship not found.</div>;
-
-  const reqExp = Number(data.required_experience_years) || 0;
-  const isExpLocked = isAuthenticated && role === "student" && reqExp > 0 && studentExp < reqExp;
-  const isDeadlinePassed = data.deadline && new Date(data.deadline) < new Date();
-  const canApply = isAuthenticated && role === "student" && !applied && !isExpLocked && !isDeadlinePassed;
+  if (!data) return <div className="page-container text-center py-20 text-surface-400">Loading...</div>;
 
   return (
-    <div className="page-container animate-fade-in max-w-3xl mx-auto">
-      <Link to="/internships" className="inline-flex items-center gap-1 text-sm text-surface-500 hover:text-surface-700 mb-6"><ArrowLeft className="w-4 h-4" /> Back to Internships</Link>
+    <div className="page-container animate-fade-in max-w-3xl">
+      <button onClick={() => navigate(-1)} className="btn-ghost mb-6 -ml-2 text-surface-500">
+        <HiOutlineArrowLeft className="w-4 h-4" /> Back
+      </button>
 
-      <div className="card p-8">
-        <div className="flex items-start justify-between mb-6">
+      <div className="card p-6 sm:p-8">
+        <div className="flex items-start justify-between mb-4">
           <div>
             <h1 className="text-2xl font-bold text-surface-900">{data.title}</h1>
-            <Link to={`/companies/${data.company_id}`} className="text-brand-600 hover:underline font-medium flex items-center gap-1 mt-1"><Building2 className="w-4 h-4" />{data.company_name}</Link>
+            <p className="text-brand-600 font-medium mt-1">{data.company_name}</p>
           </div>
-          <span className="text-xs font-medium text-green-700 bg-green-100 px-2.5 py-1 rounded-full">{data.status}</span>
+          <StatusBadge status={data.status} />
         </div>
 
-        <div className="flex flex-wrap gap-4 text-sm text-surface-600 mb-6">
-          {data.stipend > 0 && <span className="flex items-center gap-1"><IndianRupee className="w-4 h-4" />₹{Number(data.stipend).toLocaleString()}/mo</span>}
-          {data.duration && <span className="flex items-center gap-1"><Clock className="w-4 h-4" />{data.duration}</span>}
-          {data.company_location && <span className="flex items-center gap-1"><MapPin className="w-4 h-4" />{data.company_location}</span>}
-          {reqExp > 0 && <span className="flex items-center gap-1"><Briefcase className="w-4 h-4" />{reqExp}+ yrs exp required</span>}
-          {data.deadline && <span className={`flex items-center gap-1 ${isDeadlinePassed ? "text-red-500" : "text-orange-600"}`}><Calendar className="w-4 h-4" />{isDeadlinePassed ? "Deadline passed" : `Deadline: ${new Date(data.deadline).toLocaleDateString("en-IN")}`}</span>}
+        <div className="flex flex-wrap gap-4 mb-6 text-sm text-surface-500">
+          <span className="flex items-center gap-1"><HiOutlineCurrencyRupee className="w-4 h-4" /> ₹{data.stipend}/month</span>
+          {data.duration && <span className="flex items-center gap-1"><HiOutlineClock className="w-4 h-4" /> {data.duration}</span>}
+          {data.company_location && <span className="flex items-center gap-1"><HiOutlineLocationMarker className="w-4 h-4" /> {data.company_location}</span>}
+          {data.website && <a href={data.website} target="_blank" rel="noreferrer" className="flex items-center gap-1 text-brand-600 hover:underline"><HiOutlineGlobe className="w-4 h-4" /> Website</a>}
         </div>
 
-        {data.description && <div className="prose text-surface-700 mb-8 whitespace-pre-wrap">{data.description}</div>}
+        <hr className="border-surface-100 mb-6" />
 
-        {msg && <div className={`p-3 rounded-xl text-sm mb-4 ${msg.includes("success") ? "bg-green-50 text-green-700" : "bg-red-50 text-red-700"}`}>{msg}</div>}
+        <div className="mb-6">
+          <h2 className="section-title mb-2">About the role</h2>
+          <p className="text-surface-600 leading-relaxed whitespace-pre-wrap">{data.description || "No description provided."}</p>
+        </div>
 
-        {isAuthenticated && role === "student" && (
-          <div>
-            {applied ? (
-              <div className="flex items-center gap-2 px-4 py-3 bg-green-50 text-green-700 rounded-xl text-sm font-medium"><CheckCircle className="w-4 h-4" /> Already Applied</div>
-            ) : isExpLocked ? (
-              <div className="flex items-center gap-2 px-4 py-3 bg-red-50 text-red-600 rounded-xl text-sm"><AlertCircle className="w-4 h-4" /> Requires {reqExp}+ years experience (you have {studentExp})</div>
-            ) : isDeadlinePassed ? (
-              <div className="flex items-center gap-2 px-4 py-3 bg-red-50 text-red-600 rounded-xl text-sm"><AlertCircle className="w-4 h-4" /> Application deadline has passed</div>
-            ) : (
-              <button onClick={handleApply} disabled={applying} className="btn-primary">{applying ? "Applying..." : "Apply Now"}</button>
-            )}
+        <div className="text-xs text-surface-400 mb-6">
+          Industry: {data.industry || "N/A"}
+        </div>
+
+        {msg && (
+          <div className={`text-sm p-3 rounded-xl mb-4 ${msg.includes("✅") ? "bg-green-50 text-green-700" : "bg-red-50 text-red-600"}`}>
+            {msg}
           </div>
+        )}
+
+        {role === "student" && data.status === "open" && !msg.includes("✅") && (
+          <button onClick={handleApply} disabled={applyLoading} className="btn-primary w-full py-3">
+            {applyLoading ? "Submitting..." : "Apply Now"}
+          </button>
         )}
       </div>
     </div>

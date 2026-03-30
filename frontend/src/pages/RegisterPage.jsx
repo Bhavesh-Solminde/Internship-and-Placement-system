@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuthStore } from "../store/useAuthStore.js";
 import { authAPI } from "../utils/api.js";
-import { User, Mail, Lock, Phone, ArrowRight, GraduationCap, ClipboardList, Building2 } from "lucide-react";
+import { HiOutlineUser, HiOutlineMail, HiOutlineLockClosed, HiOutlinePhone, HiOutlineArrowRight } from "react-icons/hi";
 
 const roles = [
-  { value: "student",     label: "Student",     icon: GraduationCap },
-  { value: "coordinator", label: "Coordinator", icon: ClipboardList },
-  { value: "company",     label: "Company",     icon: Building2 },
+  { value: "student",     label: "Student",     emoji: "🎓" },
+  { value: "coordinator", label: "Coordinator", emoji: "📋" },
+  { value: "company",     label: "Company",     emoji: "🏢" },
 ];
 
 const RegisterPage = () => {
@@ -75,7 +75,7 @@ const RegisterPage = () => {
                   : "text-surface-500 hover:text-surface-700"
               }`}
             >
-              <r.icon className="w-4 h-4 inline mr-1" /> {r.label}
+              {r.emoji} {r.label}
             </button>
           ))}
         </div>
@@ -91,7 +91,7 @@ const RegisterPage = () => {
             <div>
               <label className="label">{activeRole === "company" ? "Company Name" : "Full Name"}</label>
               <div className="relative">
-                <User className="absolute left-3 top-1/2 -translate-y-1/2 text-surface-300 w-5 h-5" />
+                <HiOutlineUser className="absolute left-3 top-1/2 -translate-y-1/2 text-surface-300 w-5 h-5" />
                 <input name="name" className="input-field pl-10" placeholder={activeRole === "company" ? "Infosys Limited" : "John Doe"} value={form.name} onChange={handleChange} required />
               </div>
             </div>
@@ -99,7 +99,7 @@ const RegisterPage = () => {
             <div>
               <label className="label">{activeRole === "company" ? "Contact Email" : "Email"}</label>
               <div className="relative">
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-surface-300 w-5 h-5" />
+                <HiOutlineMail className="absolute left-3 top-1/2 -translate-y-1/2 text-surface-300 w-5 h-5" />
                 <input name="email" type="email" className="input-field pl-10" placeholder="you@example.com" value={form.email} onChange={handleChange} required />
               </div>
             </div>
@@ -108,7 +108,7 @@ const RegisterPage = () => {
               <div>
                 <label className="label">Phone</label>
                 <div className="relative">
-                  <Phone className="absolute left-3 top-1/2 -translate-y-1/2 text-surface-300 w-5 h-5" />
+                  <HiOutlinePhone className="absolute left-3 top-1/2 -translate-y-1/2 text-surface-300 w-5 h-5" />
                   <input name="phone" className="input-field pl-10" placeholder="9876543210" value={form.phone} onChange={handleChange} />
                 </div>
               </div>
@@ -130,13 +130,13 @@ const RegisterPage = () => {
             <div>
               <label className="label">Password</label>
               <div className="relative">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-surface-300 w-5 h-5" />
+                <HiOutlineLockClosed className="absolute left-3 top-1/2 -translate-y-1/2 text-surface-300 w-5 h-5" />
                 <input name="password" type="password" className="input-field pl-10" placeholder="Min 6 characters" value={form.password} onChange={handleChange} required minLength={6} />
               </div>
             </div>
 
             <button type="submit" disabled={loading} className="btn-primary w-full py-3 mt-2">
-              {loading ? "Creating account..." : "Create Account"} <ArrowRight className="w-4 h-4" />
+              {loading ? "Creating account..." : "Create Account"} <HiOutlineArrowRight className="w-4 h-4" />
             </button>
           </form>
 
