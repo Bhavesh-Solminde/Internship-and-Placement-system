@@ -40,7 +40,14 @@ const JobListing = () => {
       ) : (
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {jobs.map((item) => (
-            <div key={item.job_id} onClick={() => navigate(`/jobs/${item.job_id}`)} className="card-hover p-5 flex flex-col justify-between cursor-pointer">
+            <div
+              key={item.job_id}
+              role="link"
+              tabIndex={0}
+              onClick={() => navigate(`/jobs/${item.job_id}`)}
+              onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); navigate(`/jobs/${item.job_id}`); } }}
+              className="card-hover p-5 flex flex-col justify-between cursor-pointer"
+            >
               <div>
                 <div className="flex items-start justify-between mb-3">
                   <h3 className="font-semibold text-surface-900 leading-snug">{item.job_title}</h3>
