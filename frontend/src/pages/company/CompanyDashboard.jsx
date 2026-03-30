@@ -83,7 +83,7 @@ const CompanyDashboard = () => {
                 <div>
                   <h3 className="font-medium text-surface-900">{item.title || item.job_title}</h3>
                   <div className="flex items-center gap-2 text-sm text-surface-500 mt-0.5">
-                    <span>{tab === "internships" ? `₹${item.stipend}/mo · ${item.duration || "N/A"}` : `₹${Number(item.salary).toLocaleString()}/yr · ${item.location || "N/A"}`}</span>
+                    <span>{tab === "internships" ? `₹${item.stipend}/mo · ${item.duration || "N/A"}` : `${item.salary != null ? `₹${Number(item.salary).toLocaleString()}/yr` : "Salary not disclosed"} · ${item.location || "N/A"}`}</span>
                     {Number(item.required_experience_years) > 0 && <span>· {item.required_experience_years}+ yrs</span>}
                     {item.deadline && (
                       <span className={`flex items-center gap-0.5 text-xs ${expired ? "text-red-500" : "text-orange-600"}`}>

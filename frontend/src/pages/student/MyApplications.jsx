@@ -46,7 +46,7 @@ const MyApplications = () => {
               <div>
                 <h3 className="font-medium text-surface-900">{app.internship_title || app.job_title}</h3>
                 <p className="text-sm text-surface-500 mt-0.5">
-                  {app.company_name} · {app.application_type === "internship" ? `₹${app.stipend}/mo` : `₹${Number(app.salary).toLocaleString()}/yr`}
+                  {app.company_name} · {app.application_type === "internship" ? `₹${app.stipend}/mo` : (app.salary != null ? `₹${Number(app.salary).toLocaleString()}/yr` : "Salary not disclosed")}
                 </p>
                 <p className="text-xs text-surface-400 mt-0.5">Applied {new Date(app.apply_date).toLocaleDateString("en-IN")}</p>
               </div>

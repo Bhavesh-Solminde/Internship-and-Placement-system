@@ -67,11 +67,11 @@ const PostListingPage = () => {
           <div className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-surface-700 mb-1">{isInternship ? "Internship Title" : "Job Title"} *</label>
-              <input name="title" value={form.title} onChange={handleChange} className="input" placeholder={isInternship ? "e.g., Frontend Developer Intern" : "e.g., Senior Software Engineer"} required />
+              <input name="title" value={form.title} onChange={handleChange} className="input-field" placeholder={isInternship ? "e.g., Frontend Developer Intern" : "e.g., Senior Software Engineer"} required />
             </div>
             <div>
               <label className="block text-sm font-medium text-surface-700 mb-1"><FileText className="w-3.5 h-3.5 inline" /> Description</label>
-              <textarea name="description" value={form.description} onChange={handleChange} className="input" rows={5} placeholder="Describe the role, responsibilities, and requirements..." />
+              <textarea name="description" value={form.description} onChange={handleChange} className="input-field" rows={5} placeholder="Describe the role, responsibilities, and requirements..." />
             </div>
           </div>
         </section>
@@ -83,28 +83,28 @@ const PostListingPage = () => {
               <>
                 <div>
                   <label className="block text-sm font-medium text-surface-700 mb-1">Stipend (₹/month)</label>
-                  <input name="stipend" type="number" value={form.stipend} onChange={handleChange} className="input" placeholder="15000" />
+                  <input name="stipend" type="number" value={form.stipend} onChange={handleChange} className="input-field" placeholder="15000" />
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-surface-700 mb-1"><Clock className="w-3.5 h-3.5 inline" /> Duration</label>
-                  <input name="duration" value={form.duration} onChange={handleChange} className="input" placeholder="e.g., 3 months" />
+                  <input name="duration" value={form.duration} onChange={handleChange} className="input-field" placeholder="e.g., 3 months" />
                 </div>
               </>
             ) : (
               <>
                 <div>
                   <label className="block text-sm font-medium text-surface-700 mb-1">Salary (₹/year)</label>
-                  <input name="salary" type="number" value={form.salary} onChange={handleChange} className="input" placeholder="1200000" />
+                  <input name="salary" type="number" value={form.salary} onChange={handleChange} className="input-field" placeholder="1200000" />
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-surface-700 mb-1"><MapPin className="w-3.5 h-3.5 inline" /> Location</label>
-                  <input name="location" value={form.location} onChange={handleChange} className="input" placeholder="e.g., Bengaluru, Remote" />
+                  <input name="location" value={form.location} onChange={handleChange} className="input-field" placeholder="e.g., Bengaluru, Remote" />
                 </div>
               </>
             )}
             <div>
               <label className="block text-sm font-medium text-surface-700 mb-1">Min. Experience (years)</label>
-              <input name="required_experience_years" type="number" min="0" step="0.5" value={form.required_experience_years} onChange={handleChange} className="input" />
+              <input name="required_experience_years" type="number" min="0" step="0.5" value={form.required_experience_years} onChange={handleChange} className="input-field" />
             </div>
           </div>
         </section>
@@ -112,7 +112,7 @@ const PostListingPage = () => {
         <section className="card p-6">
           <h2 className="font-semibold text-surface-900 mb-4 flex items-center gap-2"><Calendar className="w-4 h-4 text-orange-500" /> Application Deadline</h2>
           <p className="text-sm text-surface-500 mb-3">Set when this listing should stop accepting new applications. After this date, only you can view the applicants.</p>
-          <input name="deadline" type="date" value={form.deadline} onChange={handleChange} className="input max-w-xs" min={new Date().toISOString().split("T")[0]} />
+          <input name="deadline" type="date" value={form.deadline} onChange={handleChange} className="input-field max-w-xs" min={new Date().toISOString().split("T")[0]} />
           {deadlineFormatted && (
             <p className="text-sm text-surface-600 mt-2 flex items-center gap-1.5">
               <Calendar className="w-3.5 h-3.5 text-orange-500" />

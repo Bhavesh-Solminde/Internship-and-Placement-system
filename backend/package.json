@@ -4,6 +4,9 @@
   "description": "Backend API for the Internship and Job Management System",
   "main": "src/server.js",
   "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
     "dev": "nodemon src/server.js",
     "start": "node src/server.js",

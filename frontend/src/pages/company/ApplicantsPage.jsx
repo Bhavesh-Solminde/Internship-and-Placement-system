@@ -166,12 +166,12 @@ const ApplicantsPage = () => {
                         <div className="border border-surface-200 rounded-xl p-4">
                           <h5 className="font-medium text-surface-900 mb-3 flex items-center gap-1.5"><Calendar className="w-4 h-4 text-blue-500" /> Schedule Interview</h5>
                           <div className="space-y-2">
-                            <input type="datetime-local" value={iForm.date || ""} onChange={(e) => updateIf(interviewForm, "interview", app.application_id, "date", e.target.value)} className="input text-sm" />
-                            <select value={iForm.mode || "online"} onChange={(e) => updateIf(interviewForm, "interview", app.application_id, "mode", e.target.value)} className="input text-sm">
+                            <input type="datetime-local" value={iForm.date || ""} onChange={(e) => updateIf(interviewForm, "interview", app.application_id, "date", e.target.value)} className="input-field text-sm" />
+                            <select value={iForm.mode || "online"} onChange={(e) => updateIf(interviewForm, "interview", app.application_id, "mode", e.target.value)} className="input-field text-sm">
                               <option value="online">Online</option><option value="offline">Offline</option><option value="telephonic">Telephonic</option>
                             </select>
-                            <input placeholder="Round (e.g., Technical Round)" value={iForm.round || ""} onChange={(e) => updateIf(interviewForm, "interview", app.application_id, "round", e.target.value)} className="input text-sm" />
-                            <textarea placeholder="Notes for the candidate" value={iForm.notes || ""} onChange={(e) => updateIf(interviewForm, "interview", app.application_id, "notes", e.target.value)} className="input text-sm" rows={2} />
+                            <input placeholder="Round (e.g., Technical Round)" value={iForm.round || ""} onChange={(e) => updateIf(interviewForm, "interview", app.application_id, "round", e.target.value)} className="input-field text-sm" />
+                            <textarea placeholder="Notes for the candidate" value={iForm.notes || ""} onChange={(e) => updateIf(interviewForm, "interview", app.application_id, "notes", e.target.value)} className="input-field text-sm" rows={2} />
                             <button onClick={() => scheduleInterview(app.application_id)} className="btn-primary w-full text-sm">Schedule</button>
                           </div>
                         </div>
@@ -182,9 +182,9 @@ const ApplicantsPage = () => {
                         <div className="border border-surface-200 rounded-xl p-4">
                           <h5 className="font-medium text-surface-900 mb-3 flex items-center gap-1.5"><Send className="w-4 h-4 text-green-500" /> Issue Offer</h5>
                           <div className="space-y-2">
-                            <input placeholder="Offer Letter URL" value={oForm.offer_letter_url || ""} onChange={(e) => updateIf(offerForm, "offer", app.application_id, "offer_letter_url", e.target.value)} className="input text-sm" />
+                            <input placeholder="Offer Letter URL" value={oForm.offer_letter_url || ""} onChange={(e) => updateIf(offerForm, "offer", app.application_id, "offer_letter_url", e.target.value)} className="input-field text-sm" />
                             <label className="block text-xs text-surface-500">Offer Deadline</label>
-                            <input type="date" value={oForm.deadline || ""} onChange={(e) => updateIf(offerForm, "offer", app.application_id, "deadline", e.target.value)} className="input text-sm" />
+                            <input type="date" value={oForm.deadline || ""} onChange={(e) => updateIf(offerForm, "offer", app.application_id, "deadline", e.target.value)} className="input-field text-sm" />
                             <button onClick={() => issueOffer(app.application_id)} className="btn-primary w-full text-sm bg-green-600 hover:bg-green-700">Issue Offer</button>
                           </div>
                         </div>

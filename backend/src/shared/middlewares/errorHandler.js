@@ -54,10 +54,22 @@ const errorHandler = (err, _req, res, _next) => {
 
   // ── PostgreSQL foreign key violation (23503) ──────────────────
   if (err.code === "23503") {
-    return res.status(400).json({
-      success: false,
-      message: "Please make sure your profile is complete",
-    });
+    const detail = (err.detail || "").toLowerCase();
+    let message = "Unable to complete this action. A referenced record no longer exists.";
+
+    // Tailor message based on which FK constraint failed
+    if (detail.includes("student_id")) {
+      message = "Please make sure your profile is complete before applying.";
+    } else if (detail.includes("internship_id") || detail.includes("job_id")) {
+      message = "This listing is no longer available.";
+    } else if (detail.includes("application_id")) {
+      message = "The application could not be found.";
+    } else if (detail.includes("company_id")) {
+      message = "The company profile could not be found.";
+    }
+
+    console.error("[FK Violation]", err.detail);
+    return res.status(400).json({ success: false, message });
   }
 
   // ── PostgreSQL check constraint violation (23514) ─────────────
