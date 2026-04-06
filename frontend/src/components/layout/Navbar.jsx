@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAuthStore } from "../../store/useAuthStore.js";
-import { Menu, X, LogOut, GraduationCap } from "lucide-react";
+import { Menu, X, LogOut, GraduationCap, MessageCircle } from "lucide-react";
 
 const Navbar = () => {
   const { isAuthenticated, role, user, logout } = useAuthStore();
@@ -20,8 +20,8 @@ const Navbar = () => {
 
   const getLinks = () => {
     if (!isAuthenticated) return [navLink("/internships", "Internships"), navLink("/jobs", "Jobs")];
-    if (role === "student") return [navLink("/student/dashboard", "Dashboard"), navLink("/internships", "Internships"), navLink("/jobs", "Jobs"), navLink("/student/applications", "My Applications")];
-    if (role === "company") return [navLink("/company/dashboard", "Dashboard"), navLink("/company/analytics", "Analytics")];
+    if (role === "student") return [navLink("/student/dashboard", "Dashboard"), navLink("/internships", "Internships"), navLink("/jobs", "Jobs"), navLink("/student/applications", "My Applications"), navLink("/student/chat", "Messages")];
+    if (role === "company") return [navLink("/company/dashboard", "Dashboard"), navLink("/company/chat", "Messages"), navLink("/company/analytics", "Analytics")];
     if (role === "coordinator") return [navLink("/coordinator/dashboard", "Dashboard"), navLink("/coordinator/students", "Students"), navLink("/coordinator/companies", "Companies"), navLink("/coordinator/applications", "Applications"), navLink("/coordinator/reports", "Reports"), navLink("/coordinator/analytics", "Analytics")];
     return [];
   };

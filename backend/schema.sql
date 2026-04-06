@@ -85,7 +85,8 @@ CREATE TABLE applications (
   application_id   UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   apply_date       TIMESTAMP DEFAULT NOW(),
   status           VARCHAR(30) DEFAULT 'pending'
-                   CHECK (status IN ('pending','under_review','shortlisted','offered','accepted','rejected','withdrawn')),
+                   CHECK (status IN ('pending','under_review','shortlisted','offered','accepted','rejected','withdrawn','expired')),
+  last_activity_at TIMESTAMP DEFAULT NOW(),
   student_id       UUID REFERENCES students(student_id) ON DELETE CASCADE,
   internship_id    UUID REFERENCES internships(internship_id) ON DELETE CASCADE,
   job_id           UUID REFERENCES jobs(job_id) ON DELETE CASCADE,
@@ -136,3 +137,37 @@ CREATE INDEX idx_applications_job        ON applications(job_id);
 CREATE INDEX idx_applications_status     ON applications(status);
 CREATE INDEX idx_interviews_application  ON interviews(application_id);
 CREATE INDEX idx_offers_application      ON offers(application_id);
+
+-- ─── Messages (Chat) ─────────────────────────────────────────────────
+CREATE TABLE messages (
+  message_id     UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  application_id UUID NOT NULL REFERENCES applications(application_id) ON DELETE CASCADE,
+  sender_id      UUID NOT NULL,
+  sender_role    VARCHAR(20) NOT NULL
+                 CHECK (sender_role IN ('student','company')),
+  content        TEXT NOT NULL,
+  is_read        BOOLEAN DEFAULT FALSE,
+  created_at     TIMESTAMP DEFAULT NOW()
+);
+
+CREATE INDEX idx_messages_application ON messages(application_id);
+CREATE INDEX idx_messages_created     ON messages(application_id, created_at);
+
+-- ─── Tasks ────────────────────────────────────────────────────────────
+CREATE TABLE tasks (
+  task_id             UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  application_id      UUID NOT NULL REFERENCES applications(application_id) ON DELETE CASCADE,
+  title               VARCHAR(300) NOT NULL,
+  description         TEXT,
+  deadline            TIMESTAMP NOT NULL,
+  status              VARCHAR(20) DEFAULT 'pending'
+                      CHECK (status IN ('pending','completed')),
+  submission_file_url TEXT,
+  submission_link     TEXT,
+  submission_notes    TEXT,
+  submitted_at        TIMESTAMP,
+  created_at          TIMESTAMP DEFAULT NOW(),
+  updated_at          TIMESTAMP DEFAULT NOW()
+);
+
+CREATE INDEX idx_tasks_application ON tasks(application_id);

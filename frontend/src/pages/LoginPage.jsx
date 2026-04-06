@@ -84,11 +84,11 @@ const LoginPage = () => {
           <div className="mb-6 p-4 bg-brand-50 rounded-xl border border-brand-100">
             <p className="text-xs font-semibold text-brand-700 mb-2 uppercase tracking-wide">Developer Demo Login</p>
             <div className="flex flex-wrap gap-2">
-              <button type="button" onClick={() => handleDemoLogin("student", "kavya@student.edu")} className="btn-secondary text-xs py-1.5 px-3"><GraduationCap className="w-3.5 h-3.5 inline" /> Student (Kavya)</button>
               <button type="button" onClick={() => handleDemoLogin("student", "rahul@student.edu")} className="btn-secondary text-xs py-1.5 px-3"><GraduationCap className="w-3.5 h-3.5 inline" /> Student (Rahul)</button>
+              <button type="button" onClick={() => handleDemoLogin("student", "priya@student.edu")} className="btn-secondary text-xs py-1.5 px-3"><GraduationCap className="w-3.5 h-3.5 inline" /> Student (Priya)</button>
               <button type="button" onClick={() => handleDemoLogin("coordinator", "coordinator@college.edu")} className="btn-secondary text-xs py-1.5 px-3"><ClipboardList className="w-3.5 h-3.5 inline" /> Coordinator</button>
               <button type="button" onClick={() => handleDemoLogin("company", "hr@infosys.com")} className="btn-secondary text-xs py-1.5 px-3"><Building2 className="w-3.5 h-3.5 inline" /> Company (Infosys)</button>
-              <button type="button" onClick={() => handleDemoLogin("company", "hr@razorpay.com")} className="btn-secondary text-xs py-1.5 px-3"><Building2 className="w-3.5 h-3.5 inline" /> Company (Razorpay)</button>
+              <button type="button" onClick={() => handleDemoLogin("company", "hr@tcs.com")} className="btn-secondary text-xs py-1.5 px-3"><Building2 className="w-3.5 h-3.5 inline" /> Company (TCS)</button>
             </div>
           </div>
 

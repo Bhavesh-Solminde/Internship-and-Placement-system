@@ -102,3 +102,20 @@ export const companyOfferAPI = {
   issue:  (data) => api.post("/api/offers", data),
   update: (id, data) => api.put(`/api/offers/${id}`, data),
 };
+
+// ─── Chat ────────────────────────────────────────────────────────────
+export const chatAPI = {
+  getThreads:  ()              => api.get("/api/chat/threads"),
+  getMessages: (applicationId) => api.get(`/api/chat/${applicationId}/messages`),
+  markRead:    (applicationId) => api.put(`/api/chat/${applicationId}/read`),
+};
+
+// ─── Tasks ───────────────────────────────────────────────────────────
+export const taskAPI = {
+  create:   (data)   => api.post("/api/tasks", data),
+  getByApp: (appId)  => api.get(`/api/tasks/${appId}`),
+  complete: (taskId, formData) => api.put(`/api/tasks/${taskId}/complete`, formData, {
+    headers: { "Content-Type": "multipart/form-data" },
+  }),
+  updateStatus: (applicationId, status) => api.patch(`/api/tasks/applications/${applicationId}/status`, { status }),
+};

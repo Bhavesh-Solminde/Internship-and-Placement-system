@@ -13,6 +13,8 @@ import jobRoutes from "./modules/jobs/jobs.routes.js";
 import applicationRoutes from "./modules/applications/applications.routes.js";
 import interviewRoutes from "./modules/interviews/interviews.routes.js";
 import offerRoutes from "./modules/offers/offers.routes.js";
+import chatRoutes from "./modules/chat/chat.routes.js";
+import taskRoutes from "./modules/tasks/tasks.routes.js";
 
 import coordinatorRoutes from "./modules/coordinators/coordinators.routes.js";
 
@@ -45,6 +47,8 @@ app.use("/api/jobs", jobRoutes);
 app.use("/api/applications", applicationRoutes);
 app.use("/api/interviews", interviewRoutes);
 app.use("/api/offers", offerRoutes);
+app.use("/api/chat", chatRoutes);
+app.use("/api/tasks", taskRoutes);
 
 app.use("/api/coordinators", coordinatorRoutes);
 

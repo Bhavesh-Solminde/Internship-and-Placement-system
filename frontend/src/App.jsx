@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useAuthStore } from "./store/useAuthStore.js";
+import { getDashboardPath } from "./utils/navigation.js";
 import Navbar from "./components/layout/Navbar.jsx";
 
 // Pages
@@ -17,12 +18,14 @@ import JobListing from "./pages/student/JobListing.jsx";
 import JobDetail from "./pages/student/JobDetail.jsx";
 import MyApplications from "./pages/student/MyApplications.jsx";
 import ApplicationDetail from "./pages/student/ApplicationDetail.jsx";
+import StudentChat from "./pages/student/StudentChat.jsx";
 
 // Company
 import CompanyDashboard from "./pages/company/CompanyDashboard.jsx";
 import ApplicantsPage from "./pages/company/ApplicantsPage.jsx";
 import PostListingPage from "./pages/company/PostListingPage.jsx";
 import CompanyAnalytics from "./pages/company/CompanyAnalytics.jsx";
+import CompanyChat from "./pages/company/CompanyChat.jsx";
 import CompanyProfile from "./pages/company/CompanyProfile.jsx";
 
 // Coordinator
@@ -41,10 +44,17 @@ const ProtectedRoute = ({ children, roles }) => {
   return children;
 };
 
+/** Redirect authenticated users from `/` to their dashboard */
+const RootRedirect = () => {
+  const { isAuthenticated, role } = useAuthStore();
+  if (isAuthenticated) return <Navigate to={getDashboardPath(role)} replace />;
+  return <LandingPage />;
+};
+
 const AppRoutes = () => (
   <Routes>
     {/* Public */}
-    <Route path="/" element={<LandingPage />} />
+    <Route path="/" element={<RootRedirect />} />
     <Route path="/login" element={<LoginPage />} />
     <Route path="/register" element={<RegisterPage />} />
     <Route path="/internships" element={<InternshipListing />} />
@@ -58,12 +68,14 @@ const AppRoutes = () => (
     <Route path="/student/profile/edit" element={<ProtectedRoute roles={["student"]}><EditProfile /></ProtectedRoute>} />
     <Route path="/student/applications" element={<ProtectedRoute roles={["student"]}><MyApplications /></ProtectedRoute>} />
     <Route path="/student/applications/:id" element={<ProtectedRoute roles={["student"]}><ApplicationDetail /></ProtectedRoute>} />
+    <Route path="/student/chat" element={<ProtectedRoute roles={["student"]}><StudentChat /></ProtectedRoute>} />
 
     {/* Company */}
     <Route path="/company/dashboard" element={<ProtectedRoute roles={["company"]}><CompanyDashboard /></ProtectedRoute>} />
     <Route path="/company/listings/:type/:id/applicants" element={<ProtectedRoute roles={["company"]}><ApplicantsPage /></ProtectedRoute>} />
     <Route path="/company/post/:type" element={<ProtectedRoute roles={["company"]}><PostListingPage /></ProtectedRoute>} />
     <Route path="/company/analytics" element={<ProtectedRoute roles={["company"]}><CompanyAnalytics /></ProtectedRoute>} />
+    <Route path="/company/chat" element={<ProtectedRoute roles={["company"]}><CompanyChat /></ProtectedRoute>} />
 
     {/* Coordinator */}
     <Route path="/coordinator/dashboard" element={<ProtectedRoute roles={["coordinator"]}><CoordinatorDashboard /></ProtectedRoute>} />
